@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEMZ STORE PAYMENT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { 
+            --rgb-speed: 3s; 
+            --glowing-green: 0 0 20px rgba(0, 255, 0, 0.7);
+            --glowing-cyan: 0 0 20px rgba(0, 242, 255, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background-color: #000; 
+            color: white; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            overflow-y: auto; 
+            overflow-x: hidden;
+            padding: 50px 0;
+            cursor: pointer;
+        }
+
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: 1; top: 0; left: 0; }
+
+        .container { position: relative; z-index: 10; width: 90%; max-width: 450px; text-align: center; }
+        
+        /* SEMZ PAYMENT NEON RGB */
+        h1 { 
+            font-size: 3rem; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            margin-bottom: 5px; 
+            animation: rgbFlow var(--rgb-speed) infinite linear; 
+        }
+
+        @keyframes rgbFlow {
+            0% { color: #ff0000; text-shadow: 0 0 25px #ff0000; }
+            33% { color: #00ff00; text-shadow: 0 0 25px #00ff00; }
+            66% { color: #0000ff; text-shadow: 0 0 25px #0000ff; }
+            100% { color: #ff0000; text-shadow: 0 0 25px #ff0000; }
+        }
+        
+        .subtitle { font-size: 0.8rem; color: #aaa; letter-spacing: 5px; margin-bottom: 30px; text-transform: uppercase; }
+
+        /* ==================== */
+        /* QRIS SECTION (NEW) */
+        /* ==================== */
+        .qris-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid #00f2ff; /* Neon cyan */
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--glowing-cyan);
+        }
+
+        .qris-img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 3px solid white;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #00f2ff;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+            transition: 0.3s;
+        }
+        .btn-download:hover { transform: scale(1.05); }
+
+        /* ==================== */
+        /* ORIGINAL E-WALLET CARDS */
+        /* ==================== */
+        .card { 
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 15px; 
+            padding: 22px; 
+            margin-bottom: 15px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: 0.3s; 
+        }
+        .card:hover { border-color: #00ff00; background: rgba(0, 255, 0, 0.05); }
+
+        .info { display: flex; align-items: center; gap: 15px; text-align: left; }
+        .label { font-size: 0.7rem; color: #00f2ff; font-weight: bold; text-transform: uppercase; }
+        .num { font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; }
+        
+        /* Tombol Copy Original */
+        .copy-btn { 
+            background: rgba(255, 255, 255, 0.1); 
+            color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 0.75rem; 
+        }
+
+        /* ==================== */
+        /* ORIGINAL CONFIRMATION */
+        /* ==================== */
+        .confirm-box {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 20px;
+        }
+        .confirm-box h2 { font-size: 1.2rem; margin-bottom: 10px; }
+        .confirm-box p { font-size: 0.85rem; color: #ccc; margin-bottom: 20px; line-height: 1.6; }
+
+        /* Tombol WA Original Green Glowing */
+        .wa-btn { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 10px; 
+            background: #25d366; 
+            color: white; 
+            padding: 15px 30px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+            transition: 0.3s;
+        }
+        .wa-btn:hover { background: #1ebd5b; transform: translateY(-3px); box-shadow: 0 0 30px rgba(37, 211, 102, 0.5); }
+
+        /* ORIGINAL MUSIC CONTROL */
+        .music-ctrl { position: fixed; bottom: 30px; right: 30px; z-index: 100; }
+        #musicBtn { 
+            width: 55px; height: 55px; border-radius: 50%; 
+            border: 3px solid #fff; color: #fff; 
+            display: flex; justify-content: center; align-items: center; 
+            cursor: pointer; background: rgba(0,0,0,0.6); 
+        }
+
+        /* TOAST NOTIF ORIGINAL */
+        #toast { 
+            visibility: hidden; position: fixed; bottom: 100px; left: 50%; 
+            transform: translateX(-50%); background: white; color: black; 
+            padding: 10px 25px; border-radius: 30px; font-weight: bold; z-index: 1000; 
+        }
+        #toast.show { visibility: visible; }
+    </style>
+</head>
+<body onclick="playMusic()">
+    <div id="particles-js"></div>
+    
+    <div class="container">
+        <h1>SEMZ STORE PAYMENT</h1>
+        <p class="subtitle">Silahkan Pilih Menu pembayaran Dan Lakukan Pembayaran</p>
+
+        <div class="qris-box">
+            <div class="label" style="margin-bottom: 10px;">SCAN QRIS ALL PAYMENT</div>
+            <img src="qris.jpg" alt="QRIS SEMZ PAYMENT" class="qris-img">
+            <br>
+            <a href="qris.jpg" download="QRIS_SEMZ_PAYMENT.jpg" class="btn-download">
+                <i class="fa-solid fa-download"></i> DOWNLOAD QRIS
+            </a>
+        </div>
+
+        <div class="card" onclick="copy('6285711157779')">
+            <div class="info">
+                <i class="fa-solid fa-wallet" style="color: #008ced; font-size: 1.5rem;"></i>
+                <div><div class="label">DANA</div><div class="num">6285711157779</div></div>
+            </div>
+            <button class="copy-btn">COPY</button>
+        </div>
+
+        <div class="card" onclick="copy('6285711157779')">
+            <div class="info">
+                <i class="fa-solid fa-mobile-screen" style="color: #00aa13; font-size: 1.5rem;"></i>
+                <div><div class="label">GOPAY</div><div class="num">6285711157779</div></div>
+            </div>
+            <button class="copy-btn">COPY</button>
+        </div>
+
+        <div class="card" onclick="copy('6285711157779')">
+            <div class="info">
+                <i class="fa-solid fa-coins" style="color: #4d2a86; font-size: 1.5rem;"></i>
+                <div><div class="label">OVO</div><div class="num">6285711157779</div></div>
+            </div>
+            <button class="copy-btn">COPY</button>
+        </div>
+
+        <div class="confirm-box">
+            <h2>Konfirmasi Pembayaran</h2>
+            <p>Kirimkan screenshot bukti transfer Anda ke WhatsApp kami untuk proses lebih cepat.</p>
+            <a href="https://wa.me/6285711157779?text=Bang+ini+bukti+pembayaran+saya" target="_blank" class="wa-btn">
+                <i class="fa-brands fa-whatsapp"></i> KIRIM BUKTI SEKARANG
+            </a>
+        </div>
+        
+        <div style="height: 50px;"></div>
+    </div>
+
+    <div class="music-ctrl"><button id="musicBtn"><i id="mIcon" class="fas fa-play"></i></button></div>
+    
+    <audio id="myAudio" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="toast">SALIN BERHASIL!</div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        const audio = document.getElementById("myAudio");
+        const mIcon = document.getElementById("mIcon");
+        let isPlaying = false;
+
+        // Auto play musik (original)
+        function playMusic() {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true; mIcon.className = "fas fa-pause";
+                }).catch(err => console.log("Menunggu Klik"));
+            }
+        }
+
+        // Copy Nomor (original)
+        function copy(t) {
+            navigator.clipboard.writeText(t);
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(() => toast.className = "", 2000);
+            playMusic();
+        }
+
+        // KONFIGURASI PARTIKEL (original)
+        particlesJS("particles-js", { 
+            "particles": { 
+                "number": { "value": 150, "density": { "enable": true, "value_area": 800 } }, 
+                "color": { "value": "#ffffff" }, 
+                "opacity": { "value": 0.3, "random": true }, 
+                "size": { "value": 2 }, 
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.1, "width": 1 }, 
+                "move": { "enable": true, "speed": 1, "direction": "none", "random": true } 
+            }
+        });
+    </script>
+</body>
+</html>
